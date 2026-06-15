@@ -1,0 +1,32 @@
+server:
+  port: 5000
+
+omdb:
+  api:
+    key: ef2cc488
+    url: http://www.omdbapi.com/
+
+security:
+  jwt:
+    secret: ChangeMeToAStrongSecretKey_ChangeMeToAStrongSecretKey
+    expirationMillis: 3600000
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/movie_discovery?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Mysql@11
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+
+
+
+
+

@@ -1,0 +1,294 @@
+Movie Recommendation System — Complete TODO Roadmap
+
+
+
+using:
+
+React + Vite
+Spring Boot
+MySQL
+OMDb API
+JWT Authentication
+
+PHASE 1 — Project Setup done
+
+Frontend Setup
+ Create Vite React app
+npm create vite@latest movie-frontend -- --template react
+ Install dependencies
+npm install react-router-dom axios
+ Install UI libraries
+npm install tailwindcss @tailwindcss/vite
+ Setup Tailwind CSS
+ Create folder structure
+src/
+ ├── components
+ ├── pages
+ ├── services
+ ├── hooks
+ ├── context
+ ├── routes
+ └── styles
+
+Backend Setup
+ Create Spring Boot project
+ Add dependencies:
+Spring Web
+Spring Data JPA
+MySQL Driver
+Lombok
+Spring Security
+JWT
+DevTools
+ Configure MySQL connection
+ Test backend startup
+Database Setup
+ Install MySQL
+ Create database
+CREATE DATABASE movie_discovery;
+
+PHASE 2 — Build Basic Frontend UI done
+Pages
+ Home page
+ Search page
+ Movie details page
+ Login page
+ Register page
+ Favorites page
+ Profile page
+Components
+ Navbar
+ SearchBar
+ MovieCard
+ Loader
+ RecommendationSection
+ RatingStars
+ Pagination
+ Footer
+UI Features
+ Responsive design
+ Dark mode  to do
+ Loading skeletons 
+ Error states  to do 
+ Empty states
+
+PHASE 3 — OMDb API Integration done
+Create API Service
+ Create Axios instance
+ Store base URL
+ Add API helper methods
+Backend OMDb Integration
+ Create OMDb config
+ Create RestTemplate/WebClient
+ Create MovieService
+ Fetch movie data from OMDb
+Features
+ Search movies done
+ Get movie details break
+ Fetch poster 
+ Fetch ratings
+ Fetch genre/year
+
+PHASE 4 — Backend Core APIs done
+Create Backend Layers
+ Entity
+ Repository
+ Service
+ Controller
+APIs
+ GET /movies
+ GET /movies/{id}
+ GET /movies/search
+ GET /recommendations
+Test APIs
+ Postman testing
+ Browser testing
+
+PHASE 5 — Authentication System
+Backend Auth
+ Create User entity
+ Create AuthController
+ Setup JWT
+ Password hashing
+ Login API
+ Register API
+ Protected routes
+Frontend Auth
+ Login form
+ Register form
+ Store JWT token
+ Protected routes
+ Logout
+
+PHASE 6 — Save Movies to MySQL
+Why?
+done
+Needed for:
+
+recommendations
+favorites
+ratings
+analytics
+Tasks
+ Save searched movies into DB
+ Avoid duplicate movies
+ Create scheduled sync (optional)
+
+PHASE 7 — Favorites & Watchlist
+Backend
+ Favorite entity
+ Favorite repository
+ Favorite APIs
+Frontend
+ Add to favorites button
+ Favorites page
+ Remove favorites
+
+PHASE 8 — Ratings System
+Backend
+ Rating entity
+ Rating APIs
+ Average rating logic
+Frontend
+ Star rating UI
+ Submit rating
+ Display average rating
+ 
+PHASE 9 — Recommendation Engine (MOST IMPORTANT)
+Step 1 — Simple Recommendations
+Content-Based Filtering
+
+Recommend using:
+
+genre
+actors
+director
+keywords
+
+Example:
+
+Sci-Fi movie
+   ↓
+Recommend other Sci-Fi movies
+Tasks
+ Fetch similar genres
+ Fetch similar directors
+ Recommend top-rated similar movies
+Step 2 — Personalized Recommendations
+
+Based on:
+
+favorites
+ratings
+watch history
+Tasks
+ Analyze user behavior
+ Track watched movies
+ Generate user preference profile
+Step 3 — Collaborative Filtering
+
+Example:
+
+Users who liked Interstellar also liked:
+- Arrival
+- Gravity
+Tasks
+ Store user ratings
+ Compare user similarity
+ Recommend common interests
+Step 4 — AI/ML Recommendations (Advanced)
+
+Use:
+
+cosine similarity
+TF-IDF
+embeddings
+
+Optional:
+
+Python microservice
+
+Huge portfolio boost.
+
+PHASE 10 — Advanced Frontend Features
+Search Improvements
+ Debounced search
+ Autocomplete
+ Infinite scrolling
+Filters
+ Genre filter
+ Year filter
+ Rating filter
+ Sort by popularity
+Animations
+ Framer Motion
+ Hover animations
+ Page transitions
+PHASE 11 — Performance Optimization
+ Lazy loading
+ Caching
+ Pagination
+ Memoization
+ API optimization
+PHASE 12 — Admin Dashboard (Optional but Impressive)
+Features
+ Most searched movies
+ Most active users
+ Top genres
+ Analytics charts
+PHASE 13 — Testing
+Backend
+ Unit tests
+ API tests
+Frontend
+ Component tests
+ UI testing
+PHASE 14 — Deployment
+Frontend
+ Deploy to Vercel
+Backend
+ Deploy to Render
+Database
+ Setup cloud MySQL
+PHASE 15 — Final Portfolio Polish
+README
+ Project overview
+ Features
+ Screenshots
+ Architecture diagram
+ Installation guide
+GitHub
+ Clean commits
+ Organized structure
+ Environment variables
+ Proper .gitignore
+Final Portfolio-Level Feature Checklist
+Essential
+ Authentication
+ Search
+ Movie details
+ Favorites
+ Ratings
+ Recommendations
+ Responsive UI
+ Backend APIs
+ MySQL integration
+Advanced
+ Personalized recommendations
+ Collaborative filtering
+ AI recommendations
+ Infinite scrolling
+ Dark mode
+ Deployment
+ Admin dashboard
+ Analytics
+Ideal Development Order
+1. Frontend UI
+2. Backend APIs
+3. OMDb integration
+4. Authentication
+5. Favorites
+6. Ratings
+7. Recommendation engine
+8. Deployment
+9. Advanced AI features
