@@ -21,6 +21,80 @@ nav { background: #000; padding: 15px; position: sticky; top: 0; z-index: 100; }
 nav a { color: white; text-decoration: none; margin-right: 15px; font-weight: bold; }
 nav a:hover { color: var(--primary); }
 
+.suggestions-hero {
+  text-align: center;
+  padding: 40px 0 10px;
+}
+
+.suggestions-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #171717;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.suggestions-panel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 16px;
+  background: #1e1e1e;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.suggestions-panel .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.suggestions-panel label {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.suggestions-panel select {
+  background: #0f0f0f;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1rem;
+}
+
+.suggestions-submit {
+  grid-column: span 3;
+  padding: 16px 20px;
+  font-size: 1rem;
+}
+
+.suggestions-message {
+  background: #1c1c1c;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .suggestions-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .suggestions-submit {
+    grid-column: span 1;
+  }
+}
+
 /* Loader Animation */
 @keyframes spin {
   0% { transform: rotate(0deg); }
