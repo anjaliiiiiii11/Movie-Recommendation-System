@@ -11,7 +11,7 @@ import Register from './pages/Register';
 import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import RequireAuth from './routes/RequireAuth';
-
+import Suggestions from './pages/Suggestions';
 import './App.css';
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/suggestions" element={<RequireAuth><Suggestions /></RequireAuth>} />
             <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           </Routes>
         </main>
