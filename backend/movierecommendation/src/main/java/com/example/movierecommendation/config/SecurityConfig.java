@@ -35,7 +35,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/ratings/**").authenticated()
                         .requestMatchers("/api/recommendations/personalized/**").authenticated()
                         .requestMatchers("/api/recommendations/collaborative/**").authenticated()
+                        .requestMatchers("/api/admin/**").authenticated()
                         .anyRequest().authenticated()
+
 
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

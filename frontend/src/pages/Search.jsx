@@ -4,6 +4,7 @@ import MovieCard from '../components/MovieCard';
 import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
+import RecommendationSection from '../components/RecommendationSection';
 import { movieService } from '../services/movieService';
 
 export default function Search() {
@@ -13,6 +14,7 @@ export default function Search() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [recommendations, setRecommendations] = useState([]);
 
   // Backend returns List<Movie> (array). Since backend doesn't provide totalResults,
   // we approximate pagination: if a page returns <10 items, there is no next page.
@@ -30,25 +32,36 @@ export default function Search() {
         // Expected from backend: array of movies
         if (Array.isArray(data)) {
           setMovies(data);
-          return;
-        }
-
-        // Backward compatibility if API ever returns OMDB-like object
-        if (data?.Response === 'True') {
+        } else if (data?.Response === 'True') {
           setMovies(data.Search || []);
-          return;
+        } else {
+          setMovies([]);
         }
 
-        setMovies([]);
+        // attempt to fetch content-based recommendations using the first search result as seed
+        const first = Array.isArray(data) ? data[0] : data?.Search?.[0];
+        const seedId = first?.imdbID || first?.imdbId;
+        if (seedId) {
+          try {
+            const content = await movieService.getContentRecommendations(seedId, 8);
+            setRecommendations(content?.movies ?? content ?? []);
+          } catch (e) {
+            setRecommendations([]);
+          }
+        } else {
+          setRecommendations([]);
+        }
       } catch (error) {
         console.error(error);
         setMovies([]);
+        setRecommendations([]);
       } finally {
         setLoading(false);
       }
     };
 
     searchMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, page]);
 
   // Pagination component needs totalPages; we set it to 1 or 2 based on hasNextPage.
@@ -81,6 +94,9 @@ export default function Search() {
 
           {totalPages > 1 && (
             <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+          )}
+          {recommendations?.length > 0 && (
+            <RecommendationSection movies={recommendations} />
           )}
         </>
       )}

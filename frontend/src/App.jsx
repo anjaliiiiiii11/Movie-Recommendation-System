@@ -5,7 +5,10 @@ import Footer from './components/Footer';
 // Pages
 import Home from './pages/Home';
 import Search from './pages/Search';
+import AdminDashboard from './pages/AdminDashboard';
+
 import MovieDetails from './pages/MovieDetails';
+
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Favorites from './pages/Favorites';
@@ -15,6 +18,7 @@ import Suggestions from './pages/Suggestions';
 import './App.css';
 
 function App() {
+
   return (
     <Router>
       <div className="app-wrapper">
@@ -28,8 +32,11 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/suggestions" element={<RequireAuth><Suggestions /></RequireAuth>} />
+            <Route path="/admin" element={<RequireAuth><AdminDashboard /></RequireAuth>} />
+
             <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           </Routes>
+
         </main>
         <Footer />
       </div>

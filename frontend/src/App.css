@@ -21,6 +21,140 @@ nav { background: #000; padding: 15px; position: sticky; top: 0; z-index: 100; }
 nav a { color: white; text-decoration: none; margin-right: 15px; font-weight: bold; }
 nav a:hover { color: var(--primary); }
 
+.admin-dashboard {
+  padding: 30px 0;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-header.admin-header-center {
+  justify-content: center;
+}
+
+.admin-subtitle {
+  margin: 0;
+  color: #e5e4e7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+}
+
+.admin-title {
+  margin: 8px 0 0;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.admin-action {
+  background: #181818;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 12px 20px;
+  border-radius: 999px;
+}
+
+.admin-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.admin-card {
+  background: #18181f;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.admin-card-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.admin-card-subtitle {
+  margin: 8px 0 20px;
+  color: #a3a3a3;
+  font-size: 0.95rem;
+}
+
+.admin-list {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #111114;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.admin-list-avatar {
+  width: 50px;
+  height: 70px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.admin-avatar-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #222;
+}
+
+.admin-list-item-info {
+  flex: 1;
+  text-align: left;
+}
+
+.admin-item-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+}
+
+.admin-item-subtitle {
+  margin: 0;
+  color: #a3a3a3;
+  font-size: 0.95rem;
+}
+
+.admin-item-count {
+  font-weight: 800;
+  color: #f5f5f5;
+}
+
+.admin-empty {
+  color: #9ca3af;
+  padding: 18px;
+  background: #111114;
+  border-radius: 16px;
+}
+
+@media (max-width: 1024px) {
+  .admin-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-title {
+    font-size: 2.2rem;
+  }
+}
+
 .suggestions-hero {
   text-align: center;
   padding: 40px 0 10px;

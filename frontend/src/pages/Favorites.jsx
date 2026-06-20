@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import MovieCard from '../components/MovieCard';
 import Loader from '../components/Loader';
+import RecommendationSection from '../components/RecommendationSection';
 import { movieService } from '../services/movieService';
 import RequireAuth from '../routes/RequireAuth';
 
 function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [personalized, setPersonalized] = useState([]);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -14,6 +16,19 @@ function FavoritesPage() {
         setLoading(true);
         const data = await movieService.getFavorites();
         setFavorites(Array.isArray(data) ? data : []);
+        // fetch personalized recommendations based on first favorite as seed
+        const list = Array.isArray(data) ? data : [];
+        if (list.length) {
+          const seedId = list[0]?.imdbId || list[0]?.imdbID || list[0]?.id;
+          if (seedId) {
+            try {
+              const rec = await movieService.getPersonalizedRecommendations(seedId, 12);
+              setPersonalized(rec?.movies ?? rec ?? []);
+            } catch {
+              setPersonalized([]);
+            }
+          }
+        }
       } catch {
         setFavorites([]);
       } finally {
@@ -43,6 +58,9 @@ function FavoritesPage() {
           ))}
         </div>
       )}
+        {personalized?.length > 0 && (
+          <RecommendationSection movies={personalized} />
+        )}
     </div>
   );
 }

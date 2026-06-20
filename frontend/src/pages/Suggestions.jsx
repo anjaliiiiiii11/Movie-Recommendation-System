@@ -35,9 +35,9 @@ function getMoodSearchQuery(mood) {
     case 'happy':
       return 'comedy movie';
     case 'sad':
-      return 'tragic movie';
+      return 'drama movie';
     case 'adventurous':
-      return 'fantasy movie';
+      return 'adventure movie';
     case 'romantic':
       return 'romance movie';
     case 'thriller':
@@ -123,6 +123,7 @@ export default function Suggestions() {
     const query = getMoodSearchQuery(mood) + (genre !== 'any' ? ` ${genre}` : '');
 
     try {
+      // initial search to find a seed movie (used by recommendation endpoints)
       const searchResults = await movieService.searchMovies(query, 1);
       const rawMovies = Array.isArray(searchResults) ? searchResults : (searchResults?.Search || []);
 
@@ -131,17 +132,63 @@ export default function Suggestions() {
         return;
       }
 
-      const detailed = await Promise.all(
-        rawMovies.slice(0, 12).map(async (movie) => {
-          const id = movie.imdbID || movie.imdbId;
-          if (!id) return null;
-          try {
-            return await movieService.getMovieDetails(id);
-          } catch (err) {
-            return null;
-          }
-        })
-      );
+      const seed = rawMovies[0];
+      const seedId = seed?.imdbID || seed?.imdbId;
+
+      // Use collaborative recommendations only (as requested). Backend may require auth.
+      let recs = [];
+      if (seedId) {
+        try {
+          recs = await movieService.getCollaborativeRecommendations(seedId, 12);
+        } catch (e) {
+          recs = [];
+        }
+      }
+
+      // Normalize recommendations into detailed movie objects. If the API returned ID strings or minimal objects,
+      // fetch full details when possible. Otherwise fall back to using the initial search results filtered client-side.
+      let detailed = [];
+
+      if (Array.isArray(recs) && recs.length > 0) {
+        detailed = await Promise.all(
+          recs.slice(0, 12).map(async (r) => {
+            if (!r) return null;
+            if (typeof r === 'string') {
+              try {
+                return await movieService.getMovieDetails(r);
+              } catch (e) {
+                return null;
+              }
+            }
+            const id = r.imdbID || r.imdbId || r.id;
+            if (id) {
+              try {
+                return await movieService.getMovieDetails(id);
+              } catch (e) {
+                // if fetching details failed, but the object looks like a movie, return it
+                return r?.Title || r?.title ? r : null;
+              }
+            }
+            return r?.Title || r?.title ? r : null;
+          })
+        );
+      }
+
+      // If recommendation APIs returned nothing, fall back to the previous mood-based search + filtering
+      if (!detailed.length) {
+        const fallback = await Promise.all(
+          rawMovies.slice(0, 12).map(async (movie) => {
+            const id = movie.imdbID || movie.imdbId;
+            if (!id) return null;
+            try {
+              return await movieService.getMovieDetails(id);
+            } catch (err) {
+              return null;
+            }
+          })
+        );
+        detailed = fallback.filter(Boolean);
+      }
 
       const filtered = detailed
         .filter(Boolean)
@@ -191,6 +238,8 @@ export default function Suggestions() {
             ))}
           </select>
         </div>
+
+        {/* Recommendations use collaborative filtering only */}
 
         <button type="submit" className="btn suggestions-submit">Get recommendations</button>
       </form>

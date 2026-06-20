@@ -230,7 +230,7 @@ PHASE 11 — Performance Optimization
  Pagination
  Memoization
  API optimization
-PHASE 12 — Admin Dashboard (Optional but Impressive)
+PHASE 12 — Admin Dashboard (Optional but Impressive)--TO do
 Features
  Most searched movies
  Most active users

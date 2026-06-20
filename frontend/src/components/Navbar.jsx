@@ -31,6 +31,9 @@ export default function Navbar() {
           <Link to="/favorites">Favorites</Link>
           <Link to="/suggestions">Suggestions</Link>
           <Link to="/profile">Profile</Link>
+          {isLoggedIn && (
+            <Link to="/admin">Admin</Link>
+          )}
           {isLoggedIn ? (
             <a className="link" href="#" onClick={(e) => { e.preventDefault(); onLogout(); }}>
               Logout
